@@ -7,8 +7,26 @@
 
 #include "../util.h"
 
+struct {
+    int id;
+    char pass[8] = {'1', '2', '3', '4', '5', '6', '7', '8'}; 
+} entity;
+
 int main()
 {
+    
+    std::ofstream base("db", std::ios::binary);
+    base.seekp(0);
+    entity.id = 1;
+    base.write((char*) &entity, sizeof(entity));
+    base.seekp(sizeof(entity));
+    entity.id = 2;
+    base.write((char*) &entity, sizeof(entity));
+    base.seekp(2 * sizeof(entity));
+    entity.id = 3;
+    base.write((char*) &entity, sizeof(entity));
+    base.close();
+
     int n;
     while (true)
     {
